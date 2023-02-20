@@ -1,18 +1,30 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
 import { StockOverviewPage } from './pages/StockOverviewPage';
 import { StockDetailPage } from './pages/StockDetailPage';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours,
+      cacheTime: 1000 * 60 * 60 * 24, // 24 hours,
+    },
+  },
+});
+
 function App() {
   return (
-    <Container centerContent>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/detail/:symbol' element={<StockDetailPage />} />
-          <Route path='/' element={<StockOverviewPage />} />
-        </Routes>
-      </BrowserRouter>
-    </Container>
+    <QueryClientProvider client={queryClient}>
+      <Container centerContent>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/detail/:symbol' element={<StockDetailPage />} />
+            <Route path='/' element={<StockOverviewPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    </QueryClientProvider>
   );
 }
 
