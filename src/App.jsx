@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from '@chakra-ui/react';
 import { StockOverviewPage } from './pages/StockOverviewPage';
 import { StockDetailPage } from './pages/StockDetailPage';
+import ToggleThemeButton from './components/ToggleThemeButton';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +17,8 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Container centerContent>
+      <Container maxW='container.xl'>
+        <ToggleThemeButton />
         <BrowserRouter>
           <Routes>
             <Route path='/detail/:symbol' element={<StockDetailPage />} />
