@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react';
+import { Stack } from '@mui/material';
 import AutoComplete from '../components/AutoComplete';
 import StockListing from '../components/StockListing';
 
