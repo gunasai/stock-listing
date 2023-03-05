@@ -1,19 +1,21 @@
-import { Thead, Tr, Th } from '@chakra-ui/react';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 const TableHeader = () => {
   return (
-    <Thead>
-      <Tr>
-        <Th>Name</Th>
-        <Th>Last</Th>
-        <Th>Change</Th>
-        <Th>Change %</Th>
-        <Th>High</Th>
-        <Th>Low</Th>
-        <Th>Open</Th>
-        <Th>Pclose</Th>
-      </Tr>
-    </Thead>
+    <TableHead>
+      <TableRow>
+        <TableCell>Name</TableCell>
+        <TableCell>Last</TableCell>
+        <TableCell>Change</TableCell>
+        <TableCell>Change %</TableCell>
+        <TableCell>High</TableCell>
+        <TableCell>Low</TableCell>
+        <TableCell>Open</TableCell>
+        <TableCell>Pclose</TableCell>
+      </TableRow>
+    </TableHead>
   );
 };
 

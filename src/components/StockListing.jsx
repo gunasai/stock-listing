@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import {
-  Spinner,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  Table,
-  TableContainer,
-} from '@chakra-ui/react';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import CircularProgress from '@mui/material/CircularProgress';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
 import { useQuery } from '@tanstack/react-query';
 import fetchStocks from '../services/fetchStocks';
 import Results from './Results';
@@ -17,7 +14,7 @@ export default function StockListing() {
   const [errorMessage, setErrorMessage] = useState('');
 
   if (isLoading) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
 
   if (isError) {
@@ -29,13 +26,13 @@ export default function StockListing() {
   return (
     <div>
       {errorMessage && (
-        <Alert status='error'>
-          <AlertIcon />
-          <AlertDescription>{errorMessage}</AlertDescription>
+        <Alert severity='error'>
+          <AlertTitle>Error</AlertTitle>
+          {errorMessage}
         </Alert>
       )}
       <TableContainer>
-        <Table variant='simple' size='lg'>
+        <Table>
           <TableHeader />
           <Results results={results} />
         </Table>
