@@ -1,19 +1,21 @@
-import { Box, Button, Flex, Spacer } from '@chakra-ui/react';
-import { useColorMode } from '@chakra-ui/react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { useContext } from 'react';
+import Stack from '@mui/material/Stack';
+import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import ColorModeContext from '../context/ThemeContext';
 
 const ToggleThemeButton = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   return (
-    <Flex as='nav'>
-      <Spacer />
-      <Box my='16px'>
-        <Button variant='ghost' onClick={() => toggleColorMode()}>
-          {colorMode === 'dark' ? <SunIcon color='yellow.400' /> : <MoonIcon />}
-        </Button>
-      </Box>
-    </Flex>
+    <Stack justifyContent='center' alignItems='flex-end' spacing={2}>
+      <IconButton sx={{ mt: 5 }} onClick={colorMode.toggleColorMode} color='inherit'>
+        {theme.palette.mode === 'dark' ? <LightModeIcon color='warning' /> : <DarkModeIcon />}
+      </IconButton>
+    </Stack>
   );
 };
 

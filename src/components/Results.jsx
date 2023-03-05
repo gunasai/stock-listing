@@ -1,34 +1,74 @@
-import { Tbody, Th, Tr, Td } from '@chakra-ui/react';
-import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { styled } from '@mui/material/styles';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import Box from '@mui/material/Box';
+
+const SuccessTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.root}`]: {
+    color: theme.palette.success.main,
+  },
+}));
+
+const ErrorTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.root}`]: {
+    color: theme.palette.error.main,
+  },
+}));
 
 const Results = ({ results }) => {
-  const setChangeColor = (value) => {
-    return value > 0 ? 'green.400' : 'red.400';
-  };
-
   const setIcon = (value) => {
-    return value > 0 ? <ChevronUpIcon color='green.400' /> : <ChevronDownIcon color='red.400' />;
+    return value > 0 ? (
+      <ArrowUpwardIcon fontSize='small' color='success' />
+    ) : (
+      <ArrowDownwardIcon fontSize='small' color='error' />
+    );
   };
 
   return (
-    <Tbody>
+    <TableBody>
       {results.map((stock) => (
-        <Tr key='MSFT'>
-          <Th>MSFT</Th>
-          <Td>{stock.c}</Td>
-          <Td color={setChangeColor(stock.d)}>
-            {stock.d} {setIcon(stock.d)}
-          </Td>
-          <Td color={setChangeColor(stock.dp)}>
-            {stock.dp} {setIcon(stock.dp)}
-          </Td>
-          <Td>{stock.h}</Td>
-          <Td>{stock.l}</Td>
-          <Td>{stock.o}</Td>
-          <Td>{stock.pc}</Td>
-        </Tr>
+        <TableRow key='MSFT'>
+          <TableCell component='th' scope='row'>
+            MSFT
+          </TableCell>
+          <TableCell>{stock.c}</TableCell>
+          {stock.d > 0 ? (
+            <SuccessTableCell>
+              <Box>
+                {stock.d} {setIcon(stock.d)}
+              </Box>
+            </SuccessTableCell>
+          ) : (
+            <ErrorTableCell>
+              <Box>
+                {stock.d} {setIcon(stock.d)}
+              </Box>
+            </ErrorTableCell>
+          )}
+          {stock.dp > 0 ? (
+            <SuccessTableCell>
+              <Box>
+                {stock.dp} {setIcon(stock.dp)}
+              </Box>
+            </SuccessTableCell>
+          ) : (
+            <ErrorTableCell>
+              <Box>
+                {stock.dp} {setIcon(stock.dp)}
+              </Box>
+            </ErrorTableCell>
+          )}
+
+          <TableCell>{stock.h}</TableCell>
+          <TableCell>{stock.l}</TableCell>
+          <TableCell>{stock.o}</TableCell>
+          <TableCell>{stock.pc}</TableCell>
+        </TableRow>
       ))}
-    </Tbody>
+    </TableBody>
   );
 };
 
