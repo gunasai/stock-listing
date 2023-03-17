@@ -46,8 +46,8 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <WatchListContextProvider>
-            <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <WatchListContextProvider>
               <Container maxWidth='xl'>
                 <ToggleThemeButton />
                 <BrowserRouter>
@@ -57,8 +57,8 @@ function App() {
                   </Routes>
                 </BrowserRouter>
               </Container>
-            </QueryClientProvider>
-          </WatchListContextProvider>
+            </WatchListContextProvider>
+          </QueryClientProvider>
         </CssBaseline>
       </ThemeProvider>
     </ColorModeContext.Provider>

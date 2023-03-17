@@ -4,16 +4,12 @@ import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
-import { useQuery } from '@tanstack/react-query';
-import fetchStocks from '../services/fetchStocks';
 import Results from './Results';
 import TableHeader from './TableHeader';
 import { WatchListContext } from '../context/WatchListContext';
 
 export default function StockListing() {
-  const { watchList } = useContext(WatchListContext);
-
-  const { data, error, isError, isLoading } = useQuery(['stocks', watchList], fetchStocks);
+  const { results, error, isError, isLoading } = useContext(WatchListContext);
   const [errorMessage, setErrorMessage] = useState('');
 
   if (isLoading) {
@@ -23,8 +19,6 @@ export default function StockListing() {
   if (isError) {
     setErrorMessage(error.message);
   }
-
-  const results = data;
 
   return (
     <div>

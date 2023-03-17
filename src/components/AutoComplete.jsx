@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -6,8 +6,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useQuery } from '@tanstack/react-query';
 import fetchSymbol from '../services/fetchSymbol';
+import { WatchListContext } from '../context/WatchListContext';
 
 export default function AutoComplete() {
+  const { addStock } = useContext(WatchListContext);
   const [open, setOpen] = useState(false);
   const [queryText, setQueryText] = useState('');
   const { data, error, isError, isLoading } = useQuery(['symbol', queryText], fetchSymbol, {
@@ -19,8 +21,14 @@ export default function AutoComplete() {
     setErrorMessage(error.message);
   }
 
-  const handleSearch = (e) => {
-    setQueryText(e.target.value);
+  const handleSearch = (e, value, reason) => {
+    if (reason === 'input') {
+      setQueryText(value);
+    }
+  };
+
+  const selectStock = (e, value) => {
+    addStock(value.symbol);
   };
 
   const options = data?.result || [];
@@ -43,10 +51,11 @@ export default function AutoComplete() {
           setOpen(false);
         }}
         loading={loading}
-        onInputChange={handleSearch}
+        onInputChange={(e, value, reason) => handleSearch(e, value, reason)}
         getOptionLabel={(option) =>
           typeof option === 'string' ? option : `${option.displaySymbol} - ${option.description}`
         }
+        onChange={(e, value) => selectStock(e, value)}
         filterOptions={(x) => x}
         autoComplete
         includeInputInList
