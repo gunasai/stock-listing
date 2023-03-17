@@ -9,6 +9,7 @@ import { StockOverviewPage } from './pages/StockOverviewPage';
 import { StockDetailPage } from './pages/StockDetailPage';
 import ToggleThemeButton from './components/ToggleThemeButton';
 import ColorModeContext from './context/ThemeContext';
+import { WatchListContextProvider } from './context/WatchListContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,15 +47,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline>
           <QueryClientProvider client={queryClient}>
-            <Container maxWidth='xl'>
-              <ToggleThemeButton />
-              <BrowserRouter>
-                <Routes>
-                  <Route path='/detail/:symbol' element={<StockDetailPage />} />
-                  <Route path='/' element={<StockOverviewPage />} />
-                </Routes>
-              </BrowserRouter>
-            </Container>
+            <WatchListContextProvider>
+              <Container maxWidth='xl'>
+                <ToggleThemeButton />
+                <BrowserRouter>
+                  <Routes>
+                    <Route path='/detail/:symbol' element={<StockDetailPage />} />
+                    <Route path='/' element={<StockOverviewPage />} />
+                  </Routes>
+                </BrowserRouter>
+              </Container>
+            </WatchListContextProvider>
           </QueryClientProvider>
         </CssBaseline>
       </ThemeProvider>
