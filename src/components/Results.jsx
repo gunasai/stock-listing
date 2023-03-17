@@ -29,45 +29,47 @@ const Results = ({ results }) => {
 
   return (
     <TableBody>
-      {results.map((stock) => (
-        <TableRow key='MSFT'>
-          <TableCell component='th' scope='row'>
-            MSFT
-          </TableCell>
-          <TableCell>{stock.c}</TableCell>
-          {stock.d > 0 ? (
-            <SuccessTableCell>
-              <Box>
-                {stock.d} {setIcon(stock.d)}
-              </Box>
-            </SuccessTableCell>
-          ) : (
-            <ErrorTableCell>
-              <Box>
-                {stock.d} {setIcon(stock.d)}
-              </Box>
-            </ErrorTableCell>
-          )}
-          {stock.dp > 0 ? (
-            <SuccessTableCell>
-              <Box>
-                {stock.dp} {setIcon(stock.dp)}
-              </Box>
-            </SuccessTableCell>
-          ) : (
-            <ErrorTableCell>
-              <Box>
-                {stock.dp} {setIcon(stock.dp)}
-              </Box>
-            </ErrorTableCell>
-          )}
+      {results.map((stock) => {
+        return (
+          <TableRow key={stock.symbol}>
+            <TableCell component='th' scope='row'>
+              {stock.symbol}
+            </TableCell>
+            <TableCell>{stock.data.c}</TableCell>
+            {stock.data.d > 0 ? (
+              <SuccessTableCell>
+                <Box>
+                  {stock.data.d} {setIcon(stock.data.d)}
+                </Box>
+              </SuccessTableCell>
+            ) : (
+              <ErrorTableCell>
+                <Box>
+                  {stock.data.d} {setIcon(stock.data.d)}
+                </Box>
+              </ErrorTableCell>
+            )}
+            {stock.data.dp > 0 ? (
+              <SuccessTableCell>
+                <Box>
+                  {stock.data.dp} {setIcon(stock.data.dp)}
+                </Box>
+              </SuccessTableCell>
+            ) : (
+              <ErrorTableCell>
+                <Box>
+                  {stock.data.dp} {setIcon(stock.data.dp)}
+                </Box>
+              </ErrorTableCell>
+            )}
 
-          <TableCell>{stock.h}</TableCell>
-          <TableCell>{stock.l}</TableCell>
-          <TableCell>{stock.o}</TableCell>
-          <TableCell>{stock.pc}</TableCell>
-        </TableRow>
-      ))}
+            <TableCell>{stock.data.h}</TableCell>
+            <TableCell>{stock.data.l}</TableCell>
+            <TableCell>{stock.data.o}</TableCell>
+            <TableCell>{stock.data.pc}</TableCell>
+          </TableRow>
+        );
+      })}
     </TableBody>
   );
 };
