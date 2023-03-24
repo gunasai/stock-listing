@@ -1,10 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+import TableRow, { tableRowClasses } from '@mui/material/TableRow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Box from '@mui/material/Box';
+
+const StyledTableRow = styled(TableRow)(() => ({
+  [`&.${tableRowClasses.hover}`]: {
+    cursor: 'pointer',
+  },
+}));
 
 const SuccessTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.root}`]: {
@@ -19,6 +26,7 @@ const ErrorTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const Results = ({ results }) => {
+  const navigate = useNavigate();
   const setIcon = (value) => {
     return value > 0 ? (
       <ArrowUpwardIcon fontSize='small' color='success' />
@@ -27,11 +35,19 @@ const Results = ({ results }) => {
     );
   };
 
+  const handleStockSelect = (symbol) => {
+    navigate(`detail/${symbol}`);
+  };
+
   return (
     <TableBody>
       {results.map((stock) => {
         return (
-          <TableRow key={stock.symbol}>
+          <StyledTableRow
+            key={stock.symbol}
+            onClick={() => handleStockSelect(stock.symbol)}
+            hover={true}
+          >
             <TableCell component='th' scope='row'>
               {stock.symbol}
             </TableCell>
@@ -67,7 +83,7 @@ const Results = ({ results }) => {
             <TableCell>{stock.data.l}</TableCell>
             <TableCell>{stock.data.o}</TableCell>
             <TableCell>{stock.data.pc}</TableCell>
-          </TableRow>
+          </StyledTableRow>
         );
       })}
     </TableBody>
