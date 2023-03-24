@@ -28,6 +28,7 @@ export default function AutoComplete() {
   };
 
   const selectStock = (e, value) => {
+    setQueryText('');
     addStock(value.symbol);
   };
 
