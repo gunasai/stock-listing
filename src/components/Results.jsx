@@ -49,7 +49,7 @@ const Results = ({ results }) => {
             hover={true}
           >
             <TableCell component='th' scope='row'>
-              {stock.symbol}
+              <strong>{stock.symbol}</strong>
             </TableCell>
             <TableCell>{stock.data.c}</TableCell>
             {stock.data.d > 0 ? (
